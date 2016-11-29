@@ -22,6 +22,29 @@ fetchmail:
  name: "Initial Version"
  version: "0.0.1"
  questions:
+ - variable: VIRTUAL_HOST
+    label: "Mail Server Virtual Host"
+    description: "Use by jwilder/nginx to setup virtual host name and let's encrypt to provide certificate"
+    default: "mail.mailu.io"
+    required: true
+    type: string
+  - variable: VIRTUAL_PORT
+    label: "Mail Server Virtual Port"
+    default: "443"
+    required: true
+    type: string
+  - variable: VIRTUAL_PROTO
+    label: "Mail Server Virtual Proto"
+    description: "Not sure if it is usefull or not"
+    default: "https"
+    required: true
+    type: string  
+  - variable: LETSENCRYPT_EMAIL
+    label: "Lets's Encrypt Email"
+    description: "Email use to create let's encrypt certificate"
+    default: "admin@admin.com"
+    required: true
+    type: string
   - variable: ROOT
     label: "Root Path"
     description: "Set this to the path where Mailu data and configuration is stored"
