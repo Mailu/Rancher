@@ -1,0 +1,272 @@
+ http:
+    image: mailu/$FRONTEND:${VERSION}
+    restart: always
+    labels: 
+     io.rancher.container.pull_image: always
+    environment:
+     BIND_ADDRESS: ${BIND_ADDRESS}
+     COMPOSE_PROJECT_NAME: ${COMPOSE_PROJECT_NAME}
+     DEBUG: ${DEBUG}
+     DOMAIN: ${DOMAIN}
+     ENABLE_CERTBOT: ${ENABLE_CERTBOT}
+     EXPOSE_ADMIN: ${EXPOSE_ADMIN}
+     FETCHMAIL_DELAY: ${FETCHMAIL_DELAY}
+     FRONTEND: ${FRONTEND}
+     HOSTNAME: ${HOSTNAME}
+     MESSAGE_SIZE_LIMIT: ${MESSAGE_SIZE_LIMIT}
+     POSTMASTER: ${POSTMASTER}
+     RELAYHOST: ${RELAYHOST}
+     RELAYNETS: ${RELAYNETS}
+     ROOT: ${ROOT}
+     SECRET_KEY: ${SECRET_KEY}
+     VERSION: ${VERSION}
+     WEBMAIL: ${WEBMAIL}
+    volumes:
+      - "${ROOT}/certs:/certs"
+ redis:
+    image: redis:${VERSION}
+    labels: 
+     io.rancher.container.pull_image: always
+    environment:
+     BIND_ADDRESS: ${BIND_ADDRESS}
+     COMPOSE_PROJECT_NAME: ${COMPOSE_PROJECT_NAME}
+     DEBUG: ${DEBUG}
+     DOMAIN: ${DOMAIN}
+     ENABLE_CERTBOT: ${ENABLE_CERTBOT}
+     EXPOSE_ADMIN: ${EXPOSE_ADMIN}
+     FETCHMAIL_DELAY: ${FETCHMAIL_DELAY}
+     FRONTEND: ${FRONTEND}
+     HOSTNAME: ${HOSTNAME}
+     MESSAGE_SIZE_LIMIT: ${MESSAGE_SIZE_LIMIT}
+     POSTMASTER: ${POSTMASTER}
+     RELAYHOST: ${RELAYHOST}
+     RELAYNETS: ${RELAYNETS}
+     ROOT: ${ROOT}
+     SECRET_KEY: ${SECRET_KEY}
+     VERSION: ${VERSION}
+     WEBMAIL: ${WEBMAIL}
+    restart: always
+    volumes:
+      - "${ROOT}/redis:/data"
+ imap:
+    image: mailu/dovecot:${VERSION}
+    labels: 
+     io.rancher.container.pull_image: always
+    environment:
+     BIND_ADDRESS: ${BIND_ADDRESS}
+     COMPOSE_PROJECT_NAME: ${COMPOSE_PROJECT_NAME}
+     DEBUG: ${DEBUG}
+     DOMAIN: ${DOMAIN}
+     ENABLE_CERTBOT: ${ENABLE_CERTBOT}
+     EXPOSE_ADMIN: ${EXPOSE_ADMIN}
+     FETCHMAIL_DELAY: ${FETCHMAIL_DELAY}
+     FRONTEND: ${FRONTEND}
+     HOSTNAME: ${HOSTNAME}
+     MESSAGE_SIZE_LIMIT: ${MESSAGE_SIZE_LIMIT}
+     POSTMASTER: ${POSTMASTER}
+     RELAYHOST: ${RELAYHOST}
+     RELAYNETS: ${RELAYNETS}
+     ROOT: ${ROOT}
+     SECRET_KEY: ${SECRET_KEY}
+     VERSION: ${VERSION}
+     WEBMAIL: ${WEBMAIL}
+    restart: always
+    ports:
+      - "${BIND_ADDRESS}:110:110"
+      - "${BIND_ADDRESS}:143:143"
+      - "${BIND_ADDRESS}:993:993"
+      - "${BIND_ADDRESS}:995:995"
+      - "${BIND_ADDRESS}:4190:4190"
+    volumes:
+      - "${ROOT}/data:/data"
+      - "${ROOT}/mail:/mail"
+      - "${ROOT}/certs:/certs"
+      - "${ROOT}/overrides:/overrides"
+ smtp:
+    image: mailu/postfix:${VERSION}
+    restart: always
+    labels: 
+     io.rancher.container.pull_image: always
+    environment:
+     BIND_ADDRESS: ${BIND_ADDRESS}
+     COMPOSE_PROJECT_NAME: ${COMPOSE_PROJECT_NAME}
+     DEBUG: ${DEBUG}
+     DOMAIN: ${DOMAIN}
+     ENABLE_CERTBOT: ${ENABLE_CERTBOT}
+     EXPOSE_ADMIN: ${EXPOSE_ADMIN}
+     FETCHMAIL_DELAY: ${FETCHMAIL_DELAY}
+     FRONTEND: ${FRONTEND}
+     HOSTNAME: ${HOSTNAME}
+     MESSAGE_SIZE_LIMIT: ${MESSAGE_SIZE_LIMIT}
+     POSTMASTER: ${POSTMASTER}
+     RELAYHOST: ${RELAYHOST}
+     RELAYNETS: ${RELAYNETS}
+     ROOT: ${ROOT}
+     SECRET_KEY: ${SECRET_KEY}
+     VERSION: ${VERSION}
+     WEBMAIL: ${WEBMAIL}
+    ports:
+      - "${BIND_ADDRESS}:25:25"
+      - "${BIND_ADDRESS}:465:465"
+      - "${BIND_ADDRESS}:587:587"
+    volumes:
+      - "${ROOT}/data:/data"
+      - "${ROOT}/certs:/certs"
+      - "${ROOT}/overrides:/overrides"
+ milter:
+    image: mailu/rmilter:${VERSION}
+    labels: 
+     io.rancher.container.pull_image: always
+    restart: always
+    environment:
+     BIND_ADDRESS: ${BIND_ADDRESS}
+     COMPOSE_PROJECT_NAME: ${COMPOSE_PROJECT_NAME}
+     DEBUG: ${DEBUG}
+     DOMAIN: ${DOMAIN}
+     ENABLE_CERTBOT: ${ENABLE_CERTBOT}
+     EXPOSE_ADMIN: ${EXPOSE_ADMIN}
+     FETCHMAIL_DELAY: ${FETCHMAIL_DELAY}
+     FRONTEND: ${FRONTEND}
+     HOSTNAME: ${HOSTNAME}
+     MESSAGE_SIZE_LIMIT: ${MESSAGE_SIZE_LIMIT}
+     POSTMASTER: ${POSTMASTER}
+     RELAYHOST: ${RELAYHOST}
+     RELAYNETS: ${RELAYNETS}
+     ROOT: ${ROOT}
+     SECRET_KEY: ${SECRET_KEY}
+     VERSION: ${VERSION}
+     WEBMAIL: ${WEBMAIL}
+    volumes:
+      - "${ROOT}/filter:/data"
+      - "${ROOT}/dkim:/dkim"
+      - "${ROOT}/overrides:/overrides"
+ antispam:
+    image: mailu/rspamd:${VERSION}
+    restart: always
+    labels: 
+     io.rancher.container.pull_image: always
+    environment:
+     BIND_ADDRESS: ${BIND_ADDRESS}
+     COMPOSE_PROJECT_NAME: ${COMPOSE_PROJECT_NAME}
+     DEBUG: ${DEBUG}
+     DOMAIN: ${DOMAIN}
+     ENABLE_CERTBOT: ${ENABLE_CERTBOT}
+     EXPOSE_ADMIN: ${EXPOSE_ADMIN}
+     FETCHMAIL_DELAY: ${FETCHMAIL_DELAY}
+     FRONTEND: ${FRONTEND}
+     HOSTNAME: ${HOSTNAME}
+     MESSAGE_SIZE_LIMIT: ${MESSAGE_SIZE_LIMIT}
+     POSTMASTER: ${POSTMASTER}
+     RELAYHOST: ${RELAYHOST}
+     RELAYNETS: ${RELAYNETS}
+     ROOT: ${ROOT}
+     SECRET_KEY: ${SECRET_KEY}
+     VERSION: ${VERSION}
+     WEBMAIL: ${WEBMAIL}
+    volumes:
+      - "${ROOT}/filter:/var/lib/rspamd"
+ antivirus:
+    image: mailu/clamav:${VERSION}
+    restart: always
+    labels: 
+     io.rancher.container.pull_image: always
+    environment:
+     BIND_ADDRESS: ${BIND_ADDRESS}
+     COMPOSE_PROJECT_NAME: ${COMPOSE_PROJECT_NAME}
+     DEBUG: ${DEBUG}
+     DOMAIN: ${DOMAIN}
+     ENABLE_CERTBOT: ${ENABLE_CERTBOT}
+     EXPOSE_ADMIN: ${EXPOSE_ADMIN}
+     FETCHMAIL_DELAY: ${FETCHMAIL_DELAY}
+     FRONTEND: ${FRONTEND}
+     HOSTNAME: ${HOSTNAME}
+     MESSAGE_SIZE_LIMIT: ${MESSAGE_SIZE_LIMIT}
+     POSTMASTER: ${POSTMASTER}
+     RELAYHOST: ${RELAYHOST}
+     RELAYNETS: ${RELAYNETS}
+     ROOT: ${ROOT}
+     SECRET_KEY: ${SECRET_KEY}
+     VERSION: ${VERSION}
+     WEBMAIL: ${WEBMAIL}
+    volumes:
+      - "${ROOT}/filter:/data"
+ admin:
+    image: mailu/admin:${VERSION}
+    restart: always
+    labels: 
+     io.rancher.container.pull_image: always
+    environment:
+     BIND_ADDRESS: ${BIND_ADDRESS}
+     COMPOSE_PROJECT_NAME: ${COMPOSE_PROJECT_NAME}
+     DEBUG: ${DEBUG}
+     DOMAIN: ${DOMAIN}
+     ENABLE_CERTBOT: ${ENABLE_CERTBOT}
+     EXPOSE_ADMIN: ${EXPOSE_ADMIN}
+     FETCHMAIL_DELAY: ${FETCHMAIL_DELAY}
+     FRONTEND: ${FRONTEND}
+     HOSTNAME: ${HOSTNAME}
+     MESSAGE_SIZE_LIMIT: ${MESSAGE_SIZE_LIMIT}
+     POSTMASTER: ${POSTMASTER}
+     RELAYHOST: ${RELAYHOST}
+     RELAYNETS: ${RELAYNETS}
+     ROOT: ${ROOT}
+     SECRET_KEY: ${SECRET_KEY}
+     VERSION: ${VERSION}
+     WEBMAIL: ${WEBMAIL}
+    ports:
+      - "127.0.0.1:8000:80"
+    volumes:
+      - "${ROOT}/data:/data"
+      - "${ROOT}/dkim:/dkim"
+      - "${ROOT}/certs:/certs"
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+ webmail:
+    image: "mailu/${WEBMAIL}:${VERSION}"
+    restart: always
+    labels: 
+     io.rancher.container.pull_image: always
+    environment:
+     BIND_ADDRESS: ${BIND_ADDRESS}
+     COMPOSE_PROJECT_NAME: ${COMPOSE_PROJECT_NAME}
+     DEBUG: ${DEBUG}
+     DOMAIN: ${DOMAIN}
+     ENABLE_CERTBOT: ${ENABLE_CERTBOT}
+     EXPOSE_ADMIN: ${EXPOSE_ADMIN}
+     FETCHMAIL_DELAY: ${FETCHMAIL_DELAY}
+     FRONTEND: ${FRONTEND}
+     HOSTNAME: ${HOSTNAME}
+     MESSAGE_SIZE_LIMIT: ${MESSAGE_SIZE_LIMIT}
+     POSTMASTER: ${POSTMASTER}
+     RELAYHOST: ${RELAYHOST}
+     RELAYNETS: ${RELAYNETS}
+     ROOT: ${ROOT}
+     SECRET_KEY: ${SECRET_KEY}
+     VERSION: ${VERSION}
+     WEBMAIL: ${WEBMAIL}
+    volumes:
+      - "${ROOT}/webmail:/data"
+ fetchmail:
+    image: mailu/fetchmail:${VERSION}
+    restart: always
+    labels: 
+     io.rancher.container.pull_image: always
+    environment:
+     BIND_ADDRESS: ${BIND_ADDRESS}
+     COMPOSE_PROJECT_NAME: ${COMPOSE_PROJECT_NAME}
+     DEBUG: ${DEBUG}
+     DOMAIN: ${DOMAIN}
+     ENABLE_CERTBOT: ${ENABLE_CERTBOT}
+     EXPOSE_ADMIN: ${EXPOSE_ADMIN}
+     FETCHMAIL_DELAY: ${FETCHMAIL_DELAY}
+     FRONTEND: ${FRONTEND}
+     HOSTNAME: ${HOSTNAME}
+     MESSAGE_SIZE_LIMIT: ${MESSAGE_SIZE_LIMIT}
+     POSTMASTER: ${POSTMASTER}
+     RELAYHOST: ${RELAYHOST}
+     RELAYNETS: ${RELAYNETS}
+     ROOT: ${ROOT}
+     SECRET_KEY: ${SECRET_KEY}
+     VERSION: ${VERSION}
+     WEBMAIL: ${WEBMAIL}
+    volumes:
+      - "${ROOT}/data:/data"

@@ -1,0 +1,7 @@
+name: Mailu
+description: "Insular email distribution - email server as Docker images"
+version: 0
+category: Mail
+maintainer: AdrienM
+license: MIT License
+projectURl: "https://github.com/Mailu/Mailu"
