@@ -101,6 +101,14 @@ fetchmail:
     options: 
         - "True"
         - "False"
+  - variable: WEBDAV
+    label: "Dav server"
+    description: "Dav server implementation (value: radicale, none)"
+    default: "none"
+    type: enum   
+    options: 
+        - "none"
+        - "radicale"
   - variable: MESSAGE_SIZE_LIMIT
     label: "Message size limit in bytes"
     description: "Default: accept messages up to 50MB"
