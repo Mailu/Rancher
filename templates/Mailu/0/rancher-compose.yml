@@ -20,7 +20,7 @@ fetchmail:
   scale: 1
 .catalog:
  name: "Initial Version"
- version: "0.0.1"
+ version: "v0.0.1"
  questions:
   - variable: ROOT
     label: "Root Path"
