@@ -21,6 +21,11 @@
      SECRET_KEY: ${SECRET_KEY}
      VERSION: ${VERSION}
      WEBMAIL: ${WEBMAIL}
+     LETSENCRYPT_EMAIL: ${LETSENCRYPT_EMAIL}
+     LETSENCRYPT_HOST: ${VIRTUAL_HOST}
+     VIRTUAL_HOST: ${VIRTUAL_HOST}
+     VIRTUAL_PORT: ${VIRTUAL_PORT}
+     VIRTUAL_PROTO: ${VIRTUAL_PROTO}
      WEBDAV: ${WEBDAV}
     volumes:
       - "${ROOT}/certs:/certs"
@@ -280,7 +285,7 @@
      WEBDAV: ${WEBDAV}
     volumes:
       - "${ROOT}/data:/data"
-webdav:
+  webdav:
     image: mailu/$WEBDAV:$VERSION
     restart: always
     labels: 
