@@ -285,7 +285,7 @@
      WEBDAV: ${WEBDAV}
     volumes:
       - "${ROOT}/data:/data"
-  webdav:
+ webdav:
     image: mailu/$WEBDAV:$VERSION
     restart: always
     labels: 
