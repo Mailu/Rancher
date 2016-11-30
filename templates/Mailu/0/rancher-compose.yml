@@ -131,7 +131,7 @@ fetchmail:
     type: enum   
     options: 
         - "none"
-        - "radicale"  
+        - "radicale"
   - variable: MESSAGE_SIZE_LIMIT
     label: "Message size limit in bytes"
     description: "Default: accept messages up to 50MB"
