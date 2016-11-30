@@ -1,4 +1,4 @@
- http:
+  http:
     image: mailu/$FRONTEND:${VERSION}
     restart: always
     labels: 
