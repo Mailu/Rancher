@@ -26,6 +26,7 @@
      VIRTUAL_HOST: ${VIRTUAL_HOST}
      VIRTUAL_PORT: ${VIRTUAL_PORT}
      VIRTUAL_PROTO: ${VIRTUAL_PROTO}
+     WEBDAV: ${WEBDAV}
     volumes:
       - "${ROOT}/certs:/certs"
  redis:
@@ -50,6 +51,7 @@
      SECRET_KEY: ${SECRET_KEY}
      VERSION: ${VERSION}
      WEBMAIL: ${WEBMAIL}
+     WEBDAV: ${WEBDAV}
     restart: always
     volumes:
       - "${ROOT}/redis:/data"
@@ -75,6 +77,7 @@
      SECRET_KEY: ${SECRET_KEY}
      VERSION: ${VERSION}
      WEBMAIL: ${WEBMAIL}
+     WEBDAV: ${WEBDAV}
     restart: always
     ports:
       - "${BIND_ADDRESS}:110:110"
@@ -110,6 +113,7 @@
      SECRET_KEY: ${SECRET_KEY}
      VERSION: ${VERSION}
      WEBMAIL: ${WEBMAIL}
+     WEBDAV: ${WEBDAV}
     ports:
       - "${BIND_ADDRESS}:25:25"
       - "${BIND_ADDRESS}:465:465"
@@ -141,6 +145,7 @@
      SECRET_KEY: ${SECRET_KEY}
      VERSION: ${VERSION}
      WEBMAIL: ${WEBMAIL}
+     WEBDAV: ${WEBDAV}
     volumes:
       - "${ROOT}/filter:/data"
       - "${ROOT}/dkim:/dkim"
@@ -168,6 +173,7 @@
      SECRET_KEY: ${SECRET_KEY}
      VERSION: ${VERSION}
      WEBMAIL: ${WEBMAIL}
+     WEBDAV: ${WEBDAV}
     volumes:
       - "${ROOT}/filter:/var/lib/rspamd"
  antivirus:
@@ -193,6 +199,7 @@
      SECRET_KEY: ${SECRET_KEY}
      VERSION: ${VERSION}
      WEBMAIL: ${WEBMAIL}
+     WEBDAV: ${WEBDAV}
     volumes:
       - "${ROOT}/filter:/data"
  admin:
@@ -218,6 +225,7 @@
      SECRET_KEY: ${SECRET_KEY}
      VERSION: ${VERSION}
      WEBMAIL: ${WEBMAIL}
+     WEBDAV: ${WEBDAV}
     ports:
       - "127.0.0.1:8000:80"
     volumes:
@@ -248,6 +256,7 @@
      SECRET_KEY: ${SECRET_KEY}
      VERSION: ${VERSION}
      WEBMAIL: ${WEBMAIL}
+     WEBDAV: ${WEBDAV}
     volumes:
       - "${ROOT}/webmail:/data"
  fetchmail:
@@ -273,5 +282,29 @@
      SECRET_KEY: ${SECRET_KEY}
      VERSION: ${VERSION}
      WEBMAIL: ${WEBMAIL}
+     WEBDAV: ${WEBDAV}
     volumes:
       - "${ROOT}/data:/data"
+  webdav:
+    image: mailu/$WEBDAV:$VERSION
+    restart: always
+         BIND_ADDRESS: ${BIND_ADDRESS}
+     COMPOSE_PROJECT_NAME: ${COMPOSE_PROJECT_NAME}
+     DEBUG: ${DEBUG}
+     DOMAIN: ${DOMAIN}
+     ENABLE_CERTBOT: ${ENABLE_CERTBOT}
+     EXPOSE_ADMIN: ${EXPOSE_ADMIN}
+     FETCHMAIL_DELAY: ${FETCHMAIL_DELAY}
+     FRONTEND: ${FRONTEND}
+     HOSTNAME: ${HOSTNAME}
+     MESSAGE_SIZE_LIMIT: ${MESSAGE_SIZE_LIMIT}
+     POSTMASTER: ${POSTMASTER}
+     RELAYHOST: ${RELAYHOST}
+     RELAYNETS: ${RELAYNETS}
+     ROOT: ${ROOT}
+     SECRET_KEY: ${SECRET_KEY}
+     VERSION: ${VERSION}
+     WEBMAIL: ${WEBMAIL}
+     WEBDAV: ${WEBDAV}
+    volumes:
+      - "$ROOT/dav:/data"
