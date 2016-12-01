@@ -1,24 +1,4 @@
-smtp:
-  scale: 1
-antivirus:
-  scale: 1
-webmail:
-  scale: 1
-redis:
-  scale: 1
-imap:
-  scale: 1
-http:
-  scale: 1
-antispam:
-  scale: 1
-admin:
-  scale: 1
-milter:
-  scale: 1
-fetchmail:
-  scale: 1
- version: '2'
+version: '2'
 .catalog:
  name: "Supporting Compose v2"
  minimun_rancher_version: 1.2.0
