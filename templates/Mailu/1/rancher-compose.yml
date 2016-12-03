@@ -153,6 +153,11 @@ fetchmail:
     label: "Fetchmail delay"
     default: "600"
     type: string
+  - variable: FETCHMAIL_KEEP
+    label: "Fetchmail keep option"
+    description: "Set this to True when you want to keep the mail on remote server as well"
+    default: "False"
+    type: string
   - variable: DEBUG
     label: "Enable Debug"
     default: "False"
