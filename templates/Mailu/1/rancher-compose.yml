@@ -1,24 +1,4 @@
-smtp:
-  scale: 1
-antivirus:
-  scale: 1
-webmail:
-  scale: 1
-redis:
-  scale: 1
-imap:
-  scale: 1
-http:
-  scale: 1
-antispam:
-  scale: 1
-admin:
-  scale: 1
-milter:
-  scale: 1
-fetchmail:
-  scale: 1
- version: '2'
+version: '2'
 .catalog:
  name: "Supporting Compose v2"
  minimun_rancher_version: 1.2.0
@@ -26,26 +6,23 @@ fetchmail:
  questions:
   - variable: VIRTUAL_HOST
     label: "Mail Server Virtual Host"
-    description: "Use by jwilder/nginx to setup virtual host name and let's encrypt to provide certificate"
+    description: "Input only if you use jwilder/nginx"
     default: "mail.mailu.io"
-    required: true
     type: string
   - variable: VIRTUAL_PORT
     label: "Mail Server Virtual Port"
+    description: "Input only if you use jwilder/nginx"
     default: "443"
-    required: true
     type: string
   - variable: VIRTUAL_PROTO
     label: "Mail Server Virtual Proto"
-    description: "Not sure if it is usefull or not"
+    description: "Input only if you use jwilder/nginx ( not sure it is usefull )"
     default: "https"
-    required: true
     type: string  
   - variable: LETSENCRYPT_EMAIL
     label: "Lets's Encrypt Email"
-    description: "Email use to create let's encrypt certificate"
+    description: "Input only if you use jwilder/nginx - Email use to create let's encrypt certificate"
     default: "admin@admin.com"
-    required: true
     type: string
   - variable: ROOT
     label: "Root Path"
