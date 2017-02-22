@@ -1,5 +1,5 @@
 # Mailu Rancher Catalog
-Rancher Catalog for Mailu.io mail server.
+Rancher Catalog for [**Mailu.io**](https://mailu.io/) mail server.
 
 ## How to
 * Just add `https://github.com/Mailu/Rancher.git` to Rancher custom catalog in "Admin -> Settings -> Catalog".
