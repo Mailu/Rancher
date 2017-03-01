@@ -3,7 +3,7 @@ services:
  http:
     image: mailu/$FRONTEND:${VERSION}
     restart: always
-    labels: 
+    labels:
      io.rancher.container.pull_image: always
     environment:
      FETCHMAIL_KEEP: ${FETCHMAIL_KEEP}
@@ -33,8 +33,8 @@ services:
     volumes:
       - "${ROOT}/certs:/certs"
  redis:
-    image: redis:${VERSION}
-    labels: 
+    image: redis:3
+    labels:
      io.rancher.container.pull_image: always
     environment:
      BIND_ADDRESS: ${BIND_ADDRESS}
@@ -60,7 +60,7 @@ services:
       - "${ROOT}/redis:/data"
  imap:
     image: mailu/dovecot:${VERSION}
-    labels: 
+    labels:
      io.rancher.container.pull_image: always
     environment:
      FETCHMAIL_KEEP: ${FETCHMAIL_KEEP}
@@ -97,7 +97,7 @@ services:
  smtp:
     image: mailu/postfix:${VERSION}
     restart: always
-    labels: 
+    labels:
      io.rancher.container.pull_image: always
     environment:
      FETCHMAIL_KEEP: ${FETCHMAIL_KEEP}
@@ -129,7 +129,7 @@ services:
       - "${ROOT}/overrides:/overrides"
  milter:
     image: mailu/rmilter:${VERSION}
-    labels: 
+    labels:
      io.rancher.container.pull_image: always
     restart: always
     environment:
@@ -159,7 +159,7 @@ services:
  antispam:
     image: mailu/rspamd:${VERSION}
     restart: always
-    labels: 
+    labels:
      io.rancher.container.pull_image: always
     environment:
      FETCHMAIL_KEEP: ${FETCHMAIL_KEEP}
@@ -186,7 +186,7 @@ services:
  antivirus:
     image: mailu/clamav:${VERSION}
     restart: always
-    labels: 
+    labels:
      io.rancher.container.pull_image: always
     environment:
      FETCHMAIL_KEEP: ${FETCHMAIL_KEEP}
@@ -213,7 +213,7 @@ services:
  admin:
     image: mailu/admin:${VERSION}
     restart: always
-    labels: 
+    labels:
      io.rancher.container.pull_image: always
     environment:
      FETCHMAIL_KEEP: ${FETCHMAIL_KEEP}
@@ -245,7 +245,7 @@ services:
  webmail:
     image: "mailu/${WEBMAIL}:${VERSION}"
     restart: always
-    labels: 
+    labels:
      io.rancher.container.pull_image: always
     environment:
      FETCHMAIL_KEEP: ${FETCHMAIL_KEEP}
@@ -272,7 +272,7 @@ services:
  fetchmail:
     image: mailu/fetchmail:${VERSION}
     restart: always
-    labels: 
+    labels:
      io.rancher.container.pull_image: always
     environment:
      FETCHMAIL_KEEP: ${FETCHMAIL_KEEP}
@@ -299,7 +299,7 @@ services:
  webdav:
     image: mailu/$WEBDAV:$VERSION
     restart: always
-    labels: 
+    labels:
      io.rancher.container.pull_image: always
     environment:
      FETCHMAIL_KEEP: ${FETCHMAIL_KEEP}
