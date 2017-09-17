@@ -50,6 +50,16 @@ ln /etc/letsencrypt-example.com/production/certs/example.com/fullchain.pem cert.
 
 * Now you can start (or re-start) your Mailu Stack.
 
+* As you are using the Rancher Catalog Let's Encrypt stack to generate your certificates, you shouldn't use the integrated certbot with the variable `ENABLE_CERTBOT`, mark it as `False`.
+
+* If you want to use a Rancher Load Balancer to handle HTTPS connections with the certificate generated with the Let's Encrypt stack (working as a TLS / SSL termination proxy) you should choose the alternative frontend that doesn't implement HTTPS itself (giving that task to the Rancher Load Balancer), so instead of `nginx` as frontend, you can use:
+
+```
+nginx-no-https
+```
+
+* Then, to make sure that every `http` request gets redirected to `https` you can start a service (container) that just redirects any `http` to `https`, for example using the Docker image: [`jamessharp/docker-nginx-https-redirect`](https://hub.docker.com/r/jamessharp/docker-nginx-https-redirect/) and configuring routes in your Rancher Load Balancer pointing any `http` to that container so that it gets converted to `https`.
+
 ### Using `jwilder/nginx` and `JrCs/docker-letsencrypt-nginx-proxy-companion`
 
 * If you need jwilder/nginx support and JrCs/docker-letsencrypt-nginx-proxy-companion, you need to manually symlink cert produce by JrCs/docker-letsencrypt-nginx-proxy-companion to `cert.pem` and `key.pem` in ${ROOT}/certs of your Mailu install.
