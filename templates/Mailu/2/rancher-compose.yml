@@ -1,0 +1,145 @@
+version: '2'
+.catalog:
+ name: "Supporting Compose v2"
+ minimun_rancher_version: 1.2.0
+ version: "v0.0.3"
+ questions:
+  - variable: VIRTUAL_HOST
+    label: "Mail Server Virtual Host"
+    description: "Input only if you use jwilder/nginx"
+    default: "mail.mailu.io"
+    type: string
+  - variable: VIRTUAL_PORT
+    label: "Mail Server Virtual Port"
+    description: "Input only if you use jwilder/nginx"
+    default: "443"
+    type: string
+  - variable: VIRTUAL_PROTO
+    label: "Mail Server Virtual Proto"
+    description: "Input only if you use jwilder/nginx ( not sure it is usefull )"
+    default: "https"
+    type: string
+  - variable: LETSENCRYPT_EMAIL
+    label: "Lets's Encrypt Email"
+    description: "Input only if you use jwilder/nginx - Email use to create let's encrypt certificate"
+    default: "admin@admin.com"
+    type: string
+  - variable: ROOT
+    label: "Root Path"
+    description: "Set this to the path where Mailu data and configuration is stored"
+    default: "/mailu"
+    required: true
+    type: string
+  - variable: VERSION
+    label: "Mailu Version"
+    description: "Mailu version to run (stable, 1.0, 1.1, etc. or latest)"
+    default: "stable"
+    required: true
+    type: string
+  - variable: SECRET_KEY
+    label: "Mailu Secret Key"
+    description: "Set to a randomly generated 16 bytes string"
+    default: "ChangeMeChangeMe"
+    required: true
+    type: string
+  - variable: BIND_ADDRESS
+    label: "Mailu bind address"
+    description: "Address where listening ports should bind"
+    default: "127.0.0.1"
+    required: true
+    type: string
+  - variable: DOMAIN
+    label: "Main mail domain"
+    default: "mailu.io"
+    required: true
+    type: string
+  - variable: HOSTNAME
+    label: "Exposed mail-server hostname"
+    default: "mail.mailu.io"
+    required: true
+    type: string
+  - variable: POSTMASTER
+    label: "Postmaster"
+    description: "Postmaster local part (will append the main mail domain)"
+    default: "admin"
+    required: true
+    type: string
+  - variable: COMPOSE_PROJECT_NAME
+    label: "Docker-compose project name"
+    description: "Docker-compose project name, this will prepended to containers names."
+    default: "mailu"
+    required: true
+    type: string
+  - variable: FRONTEND
+    label: "Frontend web server"
+    description: "Choose which frontend Web server to run if any (value: nginx, none)"
+    default: "nginx"
+    type: enum
+    options:
+        - "nginx"
+        - "nginx-no-https"
+        - "none"
+  - variable: WEBMAIL
+    label: "Webmail server type"
+    description: "Choose which webmail to run if any (values: roundcube, rainloop, none)"
+    default: "roundcube"
+    type: enum
+    options:
+        - "roundcube"
+        - "rainloop"
+        - "none"
+  - variable: EXPOSE_ADMIN
+    label: "Expose administration"
+    description: "Expose the admin interface in publicly (values: yes, no)"
+    default: "yes"
+    type: enum
+    options:
+        - "yes"
+        - "no"
+  - variable: ENABLE_CERTBOT
+    label: "Use Certbot to generate a TLS cert"
+    description: "Use Letsencrypt to generate a TLS certificate (True to enable)"
+    default: "False"
+    type: enum
+    options:
+        - "True"
+        - "False"
+  - variable: WEBDAV
+    label: "Dav server"
+    description: "Dav server implementation (value: radicale, none)"
+    default: "none"
+    type: enum
+    options:
+        - "none"
+        - "radicale"
+  - variable: MESSAGE_SIZE_LIMIT
+    label: "Message size limit in bytes"
+    description: "Default: accept messages up to 50MB"
+    default: "50000000"
+    type: string
+  - variable: RELAYNETS
+    label: "Networks granted relay permissions"
+    description: "make sure that you include your Docker internal network (default to 172.17.0.0/16)"
+    default: "172.16.0.0/12"
+    type: string
+  - variable: RELAYHOST
+    label: "Host to relay"
+    description: "Will relay all outgoing mails if configured"
+    default: ""
+    type: string
+  - variable: FETCHMAIL_DELAY
+    label: "Fetchmail delay"
+    default: "600"
+    type: string
+  - variable: FETCHMAIL_KEEP
+    label: "Fetchmail keep option"
+    description: "Set this to True when you want to keep the mail on remote server as well"
+    default: "False"
+    type: string
+  - variable: DEBUG
+    label: "Enable Debug"
+    default: "False"
+    type: enum
+    options:
+        - "True"
+        - "False"
