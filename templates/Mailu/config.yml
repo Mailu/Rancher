@@ -1,6 +1,6 @@
 name: Mailu
 description: "Insular email distribution - email server as Docker images"
-version: v0.0.3
+version: v0.0.4
 category: Mail
 maintainer: AdrienM
 license: MIT License

@@ -1,0 +1,191 @@
+version: '2'
+.catalog:
+  name: "Supporting Compose v2"
+  minimun_rancher_version: 1.2.0
+  version: "v0.0.4"
+  questions:
+  - variable: ROOT
+    label: "Root"
+    description: "Set this to the path where Mailu data and configuration is stored."
+    default: "/mailu"
+    required: true
+    type: string
+  - variable: VERSION
+    label: "Version"
+    description: "Mailu version to run (1.0, 1.1, etc. or master)."
+    default: "1.5.1"
+    required: true
+    type: string
+  - variable: SECRET_KEY
+    label: "Secret Key"
+    description: "Set to a randomly generated 16 bytes string."
+    default: "ChangeMeChangeMe"
+    required: true
+    type: string
+  - variable: DOMAIN
+    label: "Main Mail Domain"
+    default: "mailu.io"
+    required: true
+    type: string
+  - variable: HOSTNAMES
+    label: "Hostnames"
+    default: "mail.mailu.io,alternative.mailu.io,yetanother.mailu.io"
+    description: "Hostnames for this server, separated with comas, e.g. mail.mailu.io,alternative.mailu.io,yetanother.mailu.io"
+    required: true
+    type: string
+  - variable: POSTMASTER
+    label: "Postmaster"
+    description: "Postmaster local part (will append the main mail domain)."
+    default: "admin"
+    required: true
+    type: string
+  - variable: TLS_FLAVOR
+    label: "TLS Flavor"
+    description: "Choose how secure connections will behave (value: letsencrypt, cert, notls, mail)."
+    default: "cert"
+    required: true
+    type: enum
+    options:
+      - "cert"
+      - "letsencrypt"
+      - "mail"
+      - "notls"
+  - variable: AUTH_RATELIMIT
+    label: "Authentication Rate Limit"
+    description: "Authentication rate limit (per source IP address)."
+    default: "10/minute;1000/hour"
+    required: true
+    type: string
+  - variable: DISABLE_STATISTICS
+    label: "Statistics Opt-out"
+    description: "Opt-out of statistics, replace with 'true' to opt out."
+    default: "false"
+    required: true
+    type: enum
+    options:
+      - "false"
+      - "true"
+  - variable: ADMIN
+    label: "Expose Administration"
+    description: "Expose the admin interface (value: true, false)."
+    default: "false"
+    type: enum
+    options:
+      - "false"
+      - "true"
+  - variable: WEBMAIL
+    label: "Webmail Client"
+    description: "Choose which webmail to run if any (values: roundcube, rainloop, none)."
+    default: "none"
+    type: enum
+    options:
+      - "none"
+      - "rainloop"
+      - "roundcube"
+  - variable: WEBDAV
+    label: "DAV Server"
+    description: "DAV server implementation (value: radicale, none)."
+    default: "none"
+    type: enum
+    options:
+        - "none"
+        - "radicale"
+  - variable: ANTIVIRUS
+    label: "Antivirus Solution"
+    description: "Antivirus solution (value: clamav, none)."
+    default: "none"
+    type: enum
+    options:
+        - "none"
+        - "clamav"
+  - variable: MESSAGE_SIZE_LIMIT
+    label: "Message Size Limit"
+    description: "Message size limit in bytes. Default: accept messages up to 50MB."
+    default: "50000000"
+    type: string
+  - variable: RELAYNETS
+    label: "Relay"
+    description: "Networks granted relay permissions, make sure that you include your Docker internal network (default to 172.17.0.0/16)."
+    default: "172.16.0.0/12"
+    type: string
+  - variable: RELAYHOST
+    label: "Relayhost"
+    description: "Will relay all outgoing mails if configured."
+    default: ""
+    type: string
+  - variable: FETCHMAIL_DELAY
+    label: "Fetchmail Delay"
+    default: "600"
+    type: string
+  - variable: RECIPIENT_DELIMITER
+    label: "Recipient Delimiter"
+    description: "Character used to delimiter localpart from custom address part, e.g. localpart+custom@domain.tld"
+    default: "+"
+    type: string
+  - variable: DMARC_RUA
+    label: "DMARC - Reporting URI of Aggregate Reports"
+    default: "admin"
+    type: string
+  - variable: DMARC_RUF
+    label: "DMARC - Reporting URI for Forensic Reports"
+    default: "admin"
+    type: string
+  - variable: WELCOME
+    label: "Welcome Email"
+    default: "false"
+    required: true
+    type: enum
+    options:
+      - "false"
+      - "true"
+  - variable: WELCOME_SUBJECT
+    label: "Welcome Email Subject"
+    default: "Welcome to your new email account"
+    required: true
+    type: string
+  - variable: WELCOME_BODY
+    label: "Welcome Email Body"
+    default: "Welcome to your new email account, if you can read this, then it is configured properly!"
+    required: true
+    type: string
+  - variable: WEB_ADMIN
+    label: "Admin Interface"
+    description: "Path to the admin interface if enabled."
+    default: "/admin"
+    required: true
+    type: string
+  - variable: WEB_WEBMAIL
+    label: "Webmail Interface"
+    description: "Path to the webmail if enabled."
+    default: "/webmail"
+    required: true
+    type: string
+  - variable: SITENAME
+    label: "Sitename"
+    description: "Website name."
+    default: "Mailu"
+    required: true
+    type: string
+  - variable: WEBSITE
+    label: "Website URL"
+    description: "Linked Website URL."
+    default: "https://mailu.io"
+    required: true
+    type: string
+  - variable: COMPOSE_PROJECT_NAME
+    label: "Docker Compose Project Name"
+    description: "Docker-compose project name, this will prepended to containers names."
+    default: "mailu"
+    required: true
+    type: string
+  - variable: PASSWORD_SCHEME
+    label: "Default Password Scheme"
+    description: "Default password scheme used for newly created accounts and changed passwords, e.g. SHA512-CRYPT, SHA256-CRYPT, MD5-CRYPT, CRYPT."
+    default: "SHA512-CRYPT"
+    required: true
+    type: enum
+    options:
+      - "SHA512-CRYPT"
+      - "SHA256-CRYPT"
+      - "MD5-CRYPT"
+      - "CRYPT"
